@@ -48,6 +48,8 @@ class UserService {
         email: user.email,
       };
 
+      console.log(secrets.apiSecret)
+
       const accessToken = jwt.sign({ authUser }, secrets.apiSecret, { expiresIn: '1d' });
 
       return {

@@ -1,9 +1,10 @@
 import Sequelize from 'sequelize';
+import 'dotenv/config';
 
 const sequelize = new Sequelize(
-  'auth-db',
-  'admin',
-  '12345678',
+  `${process.env.DB_NAME}`,
+  `${process.env.DB_USERNAME}`,
+  `${process.env.DB_PASSWORD}`,
   {
     host: 'localhost',
     dialect: 'postgres',
