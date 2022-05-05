@@ -1,9 +1,10 @@
 import express from "express";
+import 'dotenv/config';
+
+import { connect } from './src/config/db/mongoDBConfig.js';
 
 const app = express();
-const env = process.env;
-
-const PORT = env.PORT || 8082;
+const PORT = process.env.APPLICATION_PORT || process.env.APPLICATION_PORT_ALT;
 
 app.get("/api/status", (request, response) => {
   return response.status(200).json({
