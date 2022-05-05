@@ -1,16 +1,26 @@
-import express from "express";
+import express from 'express';
 import 'dotenv/config';
 
-import { connect } from './src/config/db/mongoDBConfig.js';
+import { connectMongoDB } from './src/config/db/mongoDBConfig.js';
+import { createInitialData } from './src/config/db/initialData.js';
+import { connectRabbitMQ } from './src/config/rabbitmq/rabbitConfig.js';
+import checkToken from './src/config/auth/checkToken.js';
 
 const app = express();
 const PORT = process.env.APPLICATION_PORT || process.env.APPLICATION_PORT_ALT;
 
-app.get("/api/status", (request, response) => {
+connectMongoDB();
+createInitialData();
+
+connectRabbitMQ();
+
+app.use(checkToken);
+
+app.get('/api/status', async (request, response) => {
   return response.status(200).json({
-    service: "Sales-API",
+    service: 'Sales-API',
     httpStatus: 200,
-    status: "up",
+    status: 'up',
   });
 });
 
