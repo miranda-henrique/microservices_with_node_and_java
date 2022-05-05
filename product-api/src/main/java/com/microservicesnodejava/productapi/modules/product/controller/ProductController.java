@@ -1,8 +1,10 @@
 package com.microservicesnodejava.productapi.modules.product.controller;
 
 import com.microservicesnodejava.productapi.config.SuccessResponse;
+import com.microservicesnodejava.productapi.modules.product.dto.ProductCheckStockRequest;
 import com.microservicesnodejava.productapi.modules.product.dto.ProductRequest;
 import com.microservicesnodejava.productapi.modules.product.dto.ProductResponse;
+import com.microservicesnodejava.productapi.modules.product.dto.ProductSalesResponse;
 import com.microservicesnodejava.productapi.modules.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,4 +57,15 @@ public class ProductController {
     public SuccessResponse delete(@PathVariable Integer id) {
         return productService.delete(id);
     }
+
+    @PostMapping("check-stock")
+    public SuccessResponse checkProductStock(@RequestBody ProductCheckStockRequest request) {
+        return productService.checkProductStock(request);
+    }
+
+    @GetMapping("/{productId}/sales")
+    public ProductSalesResponse findProductSales(@PathVariable Integer id) {
+        return productService.findProductSales(id);
+    }
+
 }
